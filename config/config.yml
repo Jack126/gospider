@@ -1,0 +1,15 @@
+config:
+  application:
+    name: spider
+    mode: dev
+    host: 0.0.0.0
+    port: "8000"
+    readtimeout: 1
+    writertimeout: 2
+  jwt:
+    secret: Spider
+    timeout: 3600
+  log:
+    dir: tmp/logs
+
+
