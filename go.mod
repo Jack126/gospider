@@ -1,4 +1,4 @@
-module test
+module gospider
 
 go 1.14
 

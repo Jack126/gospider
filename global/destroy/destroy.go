@@ -1,27 +1,23 @@
 package destroy
 
 import (
-	"context"
-	"log"
+	"gospider/global/event"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
 
 func init() {
 	go func() {
-		quit := make(chan os.Signal)
-		signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-		<-quit
-		log.Println("Spider server will be shutting down ...")
-
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-		if err := srv.Shutdown(ctx); err != nil {
-			log.Fatal("Server forced to shutdown: ", err)
+		c := make(chan os.Signal)
+		signal.Notify(c) // 监听信号
+		received := <-c  //接收信号管道中的值
+		switch received {
+		case os.Interrupt, os.Kill, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGILL, syscall.SIGTERM:
+			// 检测到程序退出时，按照键的前缀统一执行销毁类事件
+			(event.CreateEventFactory()).FuzzyCall(Variable.Event_Destroy_Prefix)
+			os.Exit(1)
 		}
-		log.Println("Server exiting..")
 	}()
 
 }
