@@ -1,8 +1,8 @@
 package variable
 
 var (
-	BasePath           string = "./"
+	BasePath           string
 	EventDestroyPrefix string = "Destroy_"
-	LogSavePath        string = "storage/logs/spider.log"
+	LogSavePath        string = "/storage/logs/spider.log"
 	// other params
 )
