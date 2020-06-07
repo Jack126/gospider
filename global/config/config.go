@@ -3,23 +3,24 @@ package config
 import (
 	"gospider/global/error"
 	"gospider/global/variable"
-	"github.com/spf13/viper"
 	"log"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
-// configYml configYml struct
-type configYml struct {
+// SettingYml SettingYml struct
+type SettingYml struct {
 	viper *viper.Viper
 }
 
-// CreateConfigYmlFactory create ymlfactory
-func CreateConfigYmlFactory() *configYml {
+// CreateSettingYmlFactory create ymlfactory
+func CreateSettingYmlFactory() *SettingYml {
 
 	yamlConfig := viper.New()
 	yamlConfig.AddConfigPath(variable.BasePath + "/config")
 	// 需要读取的文件名
-	yamlConfig.SetConfigName("config")
+	yamlConfig.SetConfigName("setting")
 	//设置配置文件类型
 	yamlConfig.SetConfigType("yaml")
 
@@ -27,52 +28,52 @@ func CreateConfigYmlFactory() *configYml {
 		log.Fatal(error.ErrorsConfigInitFail + err.Error())
 	}
 
-	return &configYml{
+	return &SettingYml{
 		yamlConfig,
 	}
 }
 
 // Get 一个原始值
-func (c *configYml) Get(keyname string) interface{} {
+func (c *SettingYml) Get(keyname string) interface{} {
 	return c.viper.Get(keyname)
 }
 
 // GetString get string
-func (c *configYml) GetString(keyname string) string {
+func (c *SettingYml) GetString(keyname string) string {
 	return c.viper.GetString(keyname)
 }
 
 // GetBool get bool
-func (c *configYml) GetBool(keyname string) bool {
+func (c *SettingYml) GetBool(keyname string) bool {
 	return c.viper.GetBool(keyname)
 }
 
 // GetInt get int
-func (c *configYml) GetInt(keyname string) int {
+func (c *SettingYml) GetInt(keyname string) int {
 	return c.viper.GetInt(keyname)
 }
 
 // GetInt32 get int32
-func (c *configYml) GetInt32(keyname string) int32 {
+func (c *SettingYml) GetInt32(keyname string) int32 {
 	return c.viper.GetInt32(keyname)
 }
 
 // GetInt64 get int64
-func (c *configYml) GetInt64(keyname string) int64 {
+func (c *SettingYml) GetInt64(keyname string) int64 {
 	return c.viper.GetInt64(keyname)
 }
 
 // GetFloat64 get float64
-func (c *configYml) GetFloat64(keyname string) float64 {
+func (c *SettingYml) GetFloat64(keyname string) float64 {
 	return c.viper.GetFloat64(keyname)
 }
 
 // GetDuration get duration
-func (c *configYml) GetDuration(keyname string) time.Duration {
+func (c *SettingYml) GetDuration(keyname string) time.Duration {
 	return c.viper.GetDuration(keyname)
 }
 
 // GetStringSlice get stringslice
-func (c *configYml) GetStringSlice(keyname string) []string {
+func (c *SettingYml) GetStringSlice(keyname string) []string {
 	return c.viper.GetStringSlice(keyname)
 }
