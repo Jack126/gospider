@@ -16,24 +16,23 @@ type SettingYml struct {
 
 // CreateSettingYmlFactory create ymlfactory
 func CreateSettingYmlFactory() *SettingYml {
-
 	yamlConfig := viper.New()
+	// config file basepath
 	yamlConfig.AddConfigPath(variable.BasePath + "/config")
-	// 需要读取的文件名
+	// filename of config
 	yamlConfig.SetConfigName("setting")
-	//设置配置文件类型
+	// filetype of config
 	yamlConfig.SetConfigType("yaml")
 
 	if err := yamlConfig.ReadInConfig(); err != nil {
 		log.Fatal(error.ErrorsConfigInitFail + err.Error())
 	}
-
 	return &SettingYml{
 		yamlConfig,
 	}
 }
 
-// Get 一个原始值
+// Get get keyname
 func (c *SettingYml) Get(keyname string) interface{} {
 	return c.viper.Get(keyname)
 }

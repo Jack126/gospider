@@ -11,26 +11,22 @@ import (
 	"time"
 
 	_ "gospider/bootstrap"
-
-	"github.com/gin-gonic/gin"
+	"gospider/global/config"
+	"gospider/router"
 )
 
 func main() {
-	r := gin.Default()
-	/**** pringln spider ****/
+	/**** router ****/
+	router := router.InitRouter()
+
+	/**** pringln spider logo ****/
 	content, _ := ioutil.ReadFile("./static/spider.txt")
 	log.Println(string(content))
 
-	/**** route start ****/
-	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hello, Geektutu")
-	})
-	/**** route end ****/
-
 	/**** graceful shutdown ****/
 	srv := &http.Server{
-		Addr:    ":8082",
-		Handler: r,
+		Addr:    config.CreateSettingYmlFactory().GetString("config.application.host") + ":" + config.CreateSettingYmlFactory().GetString("config.application.port"),
+		Handler: router,
 	}
 
 	go func() {

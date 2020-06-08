@@ -9,5 +9,4 @@ func init() {
 	// init base path
 	path, _ := os.Getwd()
 	variable.BasePath = path
-
 }
